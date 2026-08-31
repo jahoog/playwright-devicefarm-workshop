@@ -50,17 +50,6 @@ echo $env:TEST_APP_URL
 
 > Note: no trailing slash — the tests append paths like `/contact` and `/feedback` themselves.
 
-## Test Credentials
-
-The sample app uses hardcoded demo auth (no real backend):
-
-| Field | Value |
-|-------|-------|
-| Email | `admin@example.com` |
-| Password | `password123` |
-
-The Login tests use these to verify a successful login, and deliberately wrong values to verify the error path.
-
 ## (Optional) Deploy Your Own Copy Later
 
 If you want to host your own instance instead of the shared one, you can deploy the app to AWS Amplify. That's outside the scope of this workshop, but the short version is:
