@@ -20,7 +20,7 @@ Chrome / Firefox / Edge on Device Farm's cloud hosts
 
 ## Prerequisites
 
-- Completed **[Prerequisites: Deploy to Amplify](./01-prerequisites-amplify.md)**
+- Completed **[Prerequisites: The Test App URL](./01-prerequisites.md)**
 - A **Device Farm Desktop Browser Testing project** (this is a *different* project type from Mobile Device Testing)
 
 ---
@@ -41,7 +41,7 @@ Copy the returned **project ARN**.
 
 ```bash
 export DEVICE_FARM_PROJECT_ARN="arn:aws:devicefarm:us-west-2:<acct>:testgrid-project:<id>"
-export TEST_APP_URL="https://main.<appId>.amplifyapp.com"
+export TEST_APP_URL="https://main.d20a5ulgjk6z5r.amplifyapp.com"
 export SELENIUM_BROWSER="chrome"   # or firefox, edge
 ```
 
@@ -82,7 +82,7 @@ Even with the Console path, execution happens from code. Set the env vars and ru
 
 ```bash
 export DEVICE_FARM_PROJECT_ARN="<testgrid-project-arn>"
-export TEST_APP_URL="https://main.<appId>.amplifyapp.com"
+export TEST_APP_URL="https://main.d20a5ulgjk6z5r.amplifyapp.com"
 npm run test:universal:selenium
 ```
 
@@ -126,7 +126,7 @@ The base workshop / project also includes a **native Selenium** test folder (`te
 |---------|-----|
 | `DEVICE_FARM_PROJECT_ARN is required` | Set it to your **testgrid-project** ARN (not a mobile project) |
 | Access denied on `CreateTestGridUrl` | The IAM user/role needs `devicefarm:CreateTestGridUrl` |
-| App fails to load | Confirm `TEST_APP_URL` is your public Amplify URL |
+| App fails to load | Confirm `TEST_APP_URL` is set to the pre-provisioned URL and reachable |
 | Wrong browser | Set `SELENIUM_BROWSER` to chrome, firefox, or edge |
 
 ## Next

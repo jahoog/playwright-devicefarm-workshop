@@ -12,7 +12,7 @@ Everything is driven by a single, shared test codebase (the "universal" tests) s
 
 By the end of this supplement you will have:
 
-1. Deployed a sample web app to **AWS Amplify** (so Device Farm devices can reach it)
+1. Used a pre-provisioned public sample web app as the test target (so Device Farm devices can reach it)
 2. Run Playwright tests on **real Android devices** via the Chrome DevTools Protocol (CDP)
 3. Run the same tests on **real iOS devices** via an Appium bridge
 4. Run the same tests on **desktop browsers** (Chrome, Firefox, Edge) via the Selenium grid
@@ -63,7 +63,7 @@ The shims bridge this gap so the same test files still run.
 
 Work through these in order:
 
-1. **[Prerequisites: Deploy to AWS Amplify](./01-prerequisites-amplify.md)** — deploy the sample app so devices can reach it
+1. **[Prerequisites: The Test App URL](./01-prerequisites.md)** — the pre-provisioned public app devices will test against
 2. **[Android on Mobile Device Farm](./02-android-device-farm.md)** — Playwright over CDP on real Android
 3. **[iOS on Mobile Device Farm](./03-ios-device-farm.md)** — Playwright tests on real Safari via Appium
 4. **[Desktop Browser Testing](./04-desktop-browser-testing.md)** — Playwright tests on Chrome/Firefox/Edge

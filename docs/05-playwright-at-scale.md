@@ -134,7 +134,7 @@ The `tests-universal/specs/*.spec.js` files run here unchanged with `TEST_PLATFO
 
 ```bash
 # One shard, desktop, against the deployed app
-TEST_APP_URL="https://main.<appId>.amplifyapp.com" \
+TEST_APP_URL="https://main.d20a5ulgjk6z5r.amplifyapp.com" \
   npx playwright test --config tests-universal/playwright.config.desktop.js --shard=1/4
 ```
 

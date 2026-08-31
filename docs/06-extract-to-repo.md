@@ -39,7 +39,7 @@ playwright-devicefarm-workshop/          ← new repo root
 │       └── schedule.js
 └── docs/                                ← this supplement
     ├── README.md
-    ├── 01-prerequisites-amplify.md
+    ├── 01-prerequisites.md
     ├── 02-android-device-farm.md
     ├── 03-ios-device-farm.md
     ├── 04-desktop-browser-testing.md
@@ -141,7 +141,6 @@ Add these to make the standalone repo workshop-ready:
 
 - **`README.md`** at the root — point to `docs/README.md` as the entry point
 - **`.gitignore`** — include `node_modules`, `dist`, `test-results`, `playwright-report*`, `tests-universal/device-farm/dist`, `.env`
-- **`amplify.yml`** — if you want one-click Amplify Git deploys (see section 01, Path B1)
 - **LICENSE** — pick an appropriate license for distribution
 
 ## Publishing to a Workshop Studio Repo

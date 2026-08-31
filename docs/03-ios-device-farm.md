@@ -22,7 +22,7 @@ Appium + XCUITest  →  Safari on a real iPhone
 
 ## Prerequisites
 
-- Completed **[Prerequisites: Deploy to Amplify](./01-prerequisites-amplify.md)**
+- Completed **[Prerequisites: The Test App URL](./01-prerequisites.md)**
 - A **Device Farm Mobile Device Testing project** and an **iOS device pool**
 
 ---
@@ -33,7 +33,7 @@ Appium + XCUITest  →  Safari on a real iPhone
 
 ```bash
 export DEVICE_FARM_PROJECT_ARN="arn:aws:devicefarm:us-west-2:<acct>:project:<id>"
-export TEST_APP_URL="https://main.<appId>.amplifyapp.com"
+export TEST_APP_URL="https://main.d20a5ulgjk6z5r.amplifyapp.com"
 export DEVICE_POOL_ARN="arn:aws:devicefarm:us-west-2:<acct>:devicepool:<iosPoolId>"
 ```
 
@@ -91,7 +91,7 @@ tests-universal/device-farm/testspec-ios.yml
 2. **Choose application**: **Web app**
 3. **Upload your tests**: test type **Appium Node.js**, upload `universal-ios-package.zip`
 4. **Custom test environment**: upload `testspec-ios.yml`
-5. **Environment variables**: `TEST_APP_URL` = your Amplify URL
+5. **Environment variables**: `TEST_APP_URL` = `https://main.d20a5ulgjk6z5r.amplifyapp.com`
 6. **Select devices**: pick an **iOS** device pool
 7. **Confirm and start run**
 

@@ -18,7 +18,7 @@ CDP over ADB  →  Chrome on a real Android phone
 
 ## Prerequisites
 
-- Completed **[Prerequisites: Deploy to Amplify](./01-prerequisites-amplify.md)** — you have a `TEST_APP_URL`
+- Completed **[Prerequisites: The Test App URL](./01-prerequisites.md)** — you have a `TEST_APP_URL`
 - A **Device Farm Mobile Device Testing project** and an **Android device pool**
 
 ---
@@ -31,7 +31,7 @@ From the VS Code Server terminal, in the project root.
 
 ```bash
 export DEVICE_FARM_PROJECT_ARN="arn:aws:devicefarm:us-west-2:<acct>:project:<id>"
-export TEST_APP_URL="https://main.<appId>.amplifyapp.com"
+export TEST_APP_URL="https://main.d20a5ulgjk6z5r.amplifyapp.com"
 export DEVICE_POOL_ARN="arn:aws:devicefarm:us-west-2:<acct>:devicepool:<id>"
 ```
 
@@ -98,7 +98,7 @@ tests-universal/device-farm/testspec-android.yml
 2. **Choose application**: select **Web app** (this is a browser test, no APK needed)
 3. **Upload your tests**: choose **Appium Node.js** as the test type, and upload `universal-android-package.zip`
 4. **Custom test environment**: upload `testspec-android.yml` as the test spec
-5. **Environment variables**: add `TEST_APP_URL` = your Amplify URL
+5. **Environment variables**: add `TEST_APP_URL` = `https://main.d20a5ulgjk6z5r.amplifyapp.com`
 6. **Select devices**: pick your Android device pool (or create one with a few phones)
 7. Choose **Confirm and start run**
 
@@ -128,7 +128,7 @@ All 14 universal tests pass on the real device. The run typically completes in a
 |---------|-----|
 | `No Android devices found via ADB` | The testspec runs `adb devices`; ensure you used the Android testspec and a mobile project |
 | Submit-button clicks time out | The universal specs use a mobile-safe `submit()` helper that dismisses the keyboard; make sure you're on the latest specs |
-| App fails to load | Confirm `TEST_APP_URL` is public and the Amplify site is live |
+| App fails to load | Confirm `TEST_APP_URL` is set to the pre-provisioned URL and reachable |
 | `EACCES` writing report | The Android config writes the report to `$DEVICEFARM_LOG_DIR`; ensure you're using the provided config |
 
 ## Next
