@@ -1,0 +1,74 @@
+version: 0.1
+
+# Universal specs on real iOS Safari via the Appium shim harness.
+# TEST_PLATFORM=ios makes the harness emulate @playwright/test on Jest + Appium.
+
+ios_test_host: macos_tahoe
+
+phases:
+  install:
+    commands:
+      - node --version
+      - devicefarm-cli use appium 3
+      - appium --version
+      - export APPIUM_BASE_PATH=
+      - cd $DEVICEFARM_TEST_PACKAGE_PATH
+      - npm install
+
+  pre_test:
+    commands:
+      # Determine WDA path for the installed XCUITest driver
+      - |-
+        APPIUM_DRIVER_VERSION=$(appium driver list --installed --json | python3 -c "import sys,json; print(json.loads(sys.stdin.read()).get('xcuitest',{}).get('version','').split('.')[0])" 2>/dev/null || echo "10");
+        CORRESPONDING_APPIUM_WDA=$(eval echo "\$DEVICEFARM_APPIUM_WDA_DERIVED_DATA_PATH_V${APPIUM_DRIVER_VERSION}" 2>/dev/null);
+        if [ -z "$CORRESPONDING_APPIUM_WDA" ]; then
+          CORRESPONDING_APPIUM_WDA=$DEVICEFARM_APPIUM_WDA_DERIVED_DATA_PATH;
+        fi;
+        export DEVICEFARM_WDA_PATH=$CORRESPONDING_APPIUM_WDA;
+        echo "Using WDA at $DEVICEFARM_WDA_PATH";
+      # Fix UDID for iOS <= 16
+      - |-
+        DEVICEFARM_DEVICE_UDID_FOR_APPIUM=$DEVICEFARM_DEVICE_UDID;
+        IOS_MAJOR=$(echo $DEVICEFARM_DEVICE_OS_VERSION | cut -d "." -f 1);
+        if [ "$IOS_MAJOR" -le 16 ] 2>/dev/null; then
+          DEVICEFARM_DEVICE_UDID_FOR_APPIUM=$(echo $DEVICEFARM_DEVICE_UDID | tr -d "-");
+        fi;
+        export DEVICEFARM_DEVICE_UDID_FOR_APPIUM;
+      # Start Appium with Safari + XCUITest
+      - |-
+        appium --base-path=$APPIUM_BASE_PATH --log-timestamp \
+        --log-no-colors --relaxed-security --default-capabilities \
+        "{\"appium:deviceName\": \"$DEVICEFARM_DEVICE_NAME\", \
+        \"platformName\": \"$DEVICEFARM_DEVICE_PLATFORM_NAME\", \
+        \"browserName\": \"Safari\", \
+        \"appium:udid\":\"$DEVICEFARM_DEVICE_UDID_FOR_APPIUM\", \
+        \"appium:platformVersion\": \"$DEVICEFARM_DEVICE_OS_VERSION\", \
+        \"appium:derivedDataPath\": \"$DEVICEFARM_WDA_PATH\", \
+        \"appium:usePrebuiltWDA\": true, \
+        \"appium:automationName\": \"XCUITest\"}" \
+        >> $DEVICEFARM_LOG_DIR/appium.log 2>&1 &
+      # Wait for Appium
+      - |-
+        appium_initialization_time=0;
+        until curl --silent --fail "http://0.0.0.0:4723${APPIUM_BASE_PATH}/status"; do
+          if [[ $appium_initialization_time -gt 30 ]]; then
+            echo "Appium did not start within 30 seconds. Exiting...";
+            exit 1;
+          fi;
+          appium_initialization_time=$((appium_initialization_time + 1));
+          echo "Waiting for Appium to start on port 4723...";
+          sleep 1;
+        done;
+
+  test:
+    commands:
+      - echo "Running universal specs on iOS Safari via Appium shim"
+      - cd $DEVICEFARM_TEST_PACKAGE_PATH
+      - export TEST_PLATFORM=ios
+      - npx jest --config jest.config.ios.js --runInBand --forceExit 2>&1
+
+  post_test:
+    commands:
+
+artifacts:
+  - $DEVICEFARM_LOG_DIR

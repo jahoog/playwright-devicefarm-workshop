@@ -1,0 +1,37 @@
+version: 0.1
+
+# Universal specs on real Android via Playwright + CDP (over ADB). No Appium.
+# TEST_PLATFORM=android makes the harness load the android-fixture which drives
+# the device's Chrome with a real Playwright Page.
+
+android_test_host: amazon_linux_2
+
+phases:
+  install:
+    commands:
+      - devicefarm-cli use node 22
+      - node --version
+      - cd $DEVICEFARM_TEST_PACKAGE_PATH
+      - export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+      - npm install
+      - adb devices
+      - echo "Device UDID - $DEVICEFARM_DEVICE_UDID"
+
+  pre_test:
+    commands:
+      - adb -s $DEVICEFARM_DEVICE_UDID shell am force-stop com.android.chrome
+      - export ANDROID_SERIAL=$DEVICEFARM_DEVICE_UDID
+
+  test:
+    commands:
+      - echo "Running universal specs on Android via Playwright CDP"
+      - cd $DEVICEFARM_TEST_PACKAGE_PATH
+      - export TEST_PLATFORM=android
+      # Report and results are written directly to DEVICEFARM_LOG_DIR via the config
+      - npx playwright test --config playwright.config.android.js 2>&1
+
+  post_test:
+    commands:
+
+artifacts:
+  - $DEVICEFARM_LOG_DIR
