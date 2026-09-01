@@ -22,7 +22,7 @@ Appium + XCUITest  →  Safari on a real iPhone
 
 ## Prerequisites
 
-- Completed **[Prerequisites: The Test App URL](./01-prerequisites.md)**
+- Completed **[Prerequisites](./01-prerequisites.md)**
 - A **Device Farm Mobile Device Testing project** and an **iOS device pool**
 
 ---

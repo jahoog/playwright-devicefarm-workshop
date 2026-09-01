@@ -18,7 +18,7 @@ CDP over ADB  →  Chrome on a real Android phone
 
 ## Prerequisites
 
-- Completed **[Prerequisites: The Test App URL](./01-prerequisites.md)** — you have a `TEST_APP_URL`
+- Completed **[Prerequisites](./01-prerequisites.md)** — repo cloned, dependencies installed, and you have a `TEST_APP_URL`
 - A **Device Farm Mobile Device Testing project** and an **Android device pool**
 
 ---

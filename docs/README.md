@@ -63,7 +63,7 @@ The shims bridge this gap so the same test files still run.
 
 Work through these in order:
 
-1. **[Prerequisites: The Test App URL](./01-prerequisites.md)** — the pre-provisioned public app devices will test against
+1. **[Prerequisites](./01-prerequisites.md)** — clone the repo, install dependencies, and get the test app URL
 2. **[Android on Mobile Device Farm](./02-android-device-farm.md)** — Playwright over CDP on real Android
 3. **[iOS on Mobile Device Farm](./03-ios-device-farm.md)** — Playwright tests on real Safari via Appium
 4. **[Desktop Browser Testing](./04-desktop-browser-testing.md)** — Playwright tests on Chrome/Firefox/Edge

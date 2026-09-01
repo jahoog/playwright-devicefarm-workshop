@@ -20,7 +20,7 @@ Chrome / Firefox / Edge on Device Farm's cloud hosts
 
 ## Prerequisites
 
-- Completed **[Prerequisites: The Test App URL](./01-prerequisites.md)**
+- Completed **[Prerequisites](./01-prerequisites.md)**
 - A **Device Farm Desktop Browser Testing project** (this is a *different* project type from Mobile Device Testing)
 
 ---

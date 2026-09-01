@@ -1,6 +1,29 @@
-# Prerequisites: The Test App URL
+# Prerequisites
 
-## Why This Matters
+## Get the Workshop Code
+
+Everything in this supplement runs from the workshop repository. Clone it first, then install dependencies.
+
+In the workshop lab (VS Code Server terminal) or on your own machine:
+
+```bash
+git clone https://github.com/jahoog/playwright-devicefarm-workshop.git
+cd playwright-devicefarm-workshop
+npm install
+```
+
+- `npm install` pulls in Playwright, the AWS SDK, and the packaging tools (including `archiver`, which the Device Farm scheduler needs).
+- If you're on the ARM64 lab and `npm install` errors on an optional Rollup dependency, or runs out of disk, see the [Troubleshooting page](./06-troubleshooting.md).
+- Already cloned it earlier? Just pull the latest instead:
+  ```bash
+  cd playwright-devicefarm-workshop
+  git pull
+  npm install
+  ```
+
+All commands in the later sections assume you're in the `playwright-devicefarm-workshop` directory.
+
+## The Test App URL — Why This Matters
 
 Device Farm runs your tests on **real devices and cloud browsers** inside AWS. Those devices reach the web app under test over the public internet — they cannot see `localhost` on your lab machine.
 
