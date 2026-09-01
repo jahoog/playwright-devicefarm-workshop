@@ -188,6 +188,7 @@ Make sure `DEVICE_FARM_PROJECT_ARN` for the Android and iOS sections is a **mobi
 | `apt-get: command not found` during `playwright install-deps` | Amazon Linux, not Ubuntu | Don't run browsers locally in the lab; use Device Farm |
 | Run schedules but nothing happens | Wrong project ARN type | Use a mobile `project:` ARN for Android/iOS, `testgrid-project:` for Desktop Browser |
 | `NodeVersionSupportWarning` from AWS SDK | Node 20 vs future SDK requirement | Informational only — safe to ignore |
+| `Not authorized to perform sts:AssumeRoleWithWebIdentity` (GitHub Actions) | OIDC role trust policy doesn't match GitHub's newer immutable-ID subject format | Update the role trust policy — see the [Workshop Addendum](./07-workshop-addendum.md) |
 
 ---
 

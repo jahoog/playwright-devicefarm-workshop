@@ -69,6 +69,7 @@ Work through these in order:
 4. **[Desktop Browser Testing](./04-desktop-browser-testing.md)** — Playwright tests on Chrome/Firefox/Edge
 5. **[Running Playwright at Scale](./05-playwright-at-scale.md)** — self-hosted parallel execution on AWS
 6. **[Troubleshooting & Common Issues](./06-troubleshooting.md)** — fixes for problems seen during the workshop
+7. **[Workshop Addendum](./07-workshop-addendum.md)** — required corrections to base-workshop steps (e.g. GitHub Actions OIDC trust policy)
 
 ## Lab Environment Notes
 
