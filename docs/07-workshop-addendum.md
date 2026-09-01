@@ -4,6 +4,44 @@ This page captures extra steps and corrections that aren't in the base workshop 
 
 ---
 
+## Module 2, Lab 1 — Setup GitHub Repo (clone + fetch test assets)
+
+**Where this applies:** Module 2, Lab 1, the **"Setup GitHub Repo"** step.
+
+These helper commands clone your GitHub repo and pull in the sample test assets the lab expects. Run them from the lab's `Workshop` directory.
+
+> Use `git clone` directly (not the `gh` CLI). Replace `<your-github-username>` with your GitHub owner, and adjust the repo name if yours differs.
+
+```bash
+# From the Workshop directory
+cd /Workshop
+
+# Clone your repo (use your own GitHub username/URL — not the gh tool)
+git clone https://github.com/<your-github-username>/aws-device-farm-github-action-lab.git
+cd aws-device-farm-github-action-lab
+
+# Copy the sample Android test suite from the lab's test_packages
+cp ../test_packages/TestSuite/MySampleAndroidTests.zip .
+
+# Download the sample app APK
+curl 'https://static.us-east-1.prod.workshops.aws/9023c493-eb13-44cb-9a9f-f123e4f7e89e/assets/resources/aws-devicefarm-sample-app.apk?Key-Pair-Id=K36Q2WVO3JP7QD&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9zdGF0aWMudXMtZWFzdC0xLnByb2Qud29ya3Nob3BzLmF3cy85MDIzYzQ5My1lYjEzLTQ0Y2ItOWE5Zi1mMTIzZTRmN2U4OWUvKiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc4ODg5MTkzOH19fV19&Signature=UC7CAY0l661Q0fi7aO2elllgLjNXmhe1MNdVWnhALHdpqVpch-zjSCSPG1-zMqUx3ked73WVvFVj5XnhHpgNqQEL3CzPUnaTMA9q3IqOsDOmFalm33qKmZ1ESk~G11hM3Ngov5myNMiEHz7RUfzIRSQsLphWyk1nL-tMLl7GyhlCJyfTHw0jZPosScMpRuQ7-xvfcnFanTTp-snHwTUUCIludt6KvKUEheabag-G4moQNKsD21jrO5ZZn1Z1fkrX7CKmf8ZLYf11xgwe8KgQlfL7l0RoJx3xNVwckCnJjJtRmyyxsnB0SvDYaUIytIXXRS76iJvRDumLvUeZEdKkNA__' -o aws-devicefarm-sample-app.apk
+
+# Download the WebdriverIO test spec
+curl 'https://static.us-east-1.prod.workshops.aws/9023c493-eb13-44cb-9a9f-f123e4f7e89e/assets/resources/webdriverio_spec_file.yml?Key-Pair-Id=K36Q2WVO3JP7QD&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9zdGF0aWMudXMtZWFzdC0xLnByb2Qud29ya3Nob3BzLmF3cy85MDIzYzQ5My1lYjEzLTQ0Y2ItOWE5Zi1mMTIzZTRmN2U4OWUvKiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc4ODg5MTkzOH19fV19&Signature=UC7CAY0l661Q0fi7aO2elllgLjNXmhe1MNdVWnhALHdpqVpch-zjSCSPG1-zMqUx3ked73WVvFVj5XnhHpgNqQEL3CzPUnaTMA9q3IqOsDOmFalm33qKmZ1ESk~G11hM3Ngov5myNMiEHz7RUfzIRSQsLphWyk1nL-tMLl7GyhlCJyfTHw0jZPosScMpRuQ7-xvfcnFanTTp-snHwTUUCIludt6KvKUEheabag-G4moQNKsD21jrO5ZZn1Z1fkrX7CKmf8ZLYf11xgwe8KgQlfL7l0RoJx3xNVwckCnJjJtRmyyxsnB0SvDYaUIytIXXRS76iJvRDumLvUeZEdKkNA__' -o webdriverio_spec_file.yml
+```
+
+Then commit the assets to your repo:
+
+```bash
+git add MySampleAndroidTests.zip aws-devicefarm-sample-app.apk webdriverio_spec_file.yml
+git commit -m "Add sample app APK, Android test suite, and WebdriverIO spec"
+git push
+```
+
+> Note: the two `curl` URLs are **time-limited signed CloudFront links** from the base workshop's asset bucket. If a download returns an access-denied or expired error, grab the current signed URLs from the base workshop's Module 2, Lab 1 instructions and substitute them.
+
+---
+
 ## Module 2, Lab 1 — GitHub Actions OIDC trust relationship
 
 **Where this applies:** Module 2, Lab 1, immediately **after the "Configure AWS Credentials" step**.
