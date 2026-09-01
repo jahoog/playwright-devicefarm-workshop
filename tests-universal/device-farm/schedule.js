@@ -100,16 +100,35 @@ function createPackage() {
 
 async function uploadFile(client, filePath, type, contentType) {
   const fileName = path.basename(filePath);
-  console.log(`⬆️  Uploading ${fileName}...`);
+  console.log(`⬆️  Uploading ${fileName} (type: ${type})...`);
   const { upload } = await client.send(new CreateUploadCommand({ projectArn: config.projectArn, name: fileName, type, contentType }));
-  const response = await fetch(upload.url, { method: 'PUT', headers: { 'Content-Type': contentType }, body: fs.readFileSync(filePath) });
-  if (!response.ok) throw new Error(`Upload failed: ${response.status}`);
+
+  const putRes = await fetch(upload.url, {
+    method: 'PUT',
+    headers: { 'Content-Type': contentType },
+    body: fs.readFileSync(filePath),
+  });
+  if (!putRes.ok) {
+    throw new Error(`S3 upload PUT failed: ${putRes.status} ${putRes.statusText}`);
+  }
+
   let status = 'PROCESSING';
+  let waited = 0;
   while (status === 'PROCESSING' || status === 'INITIALIZED') {
-    await new Promise(r => setTimeout(r, 3000));
+    await new Promise((r) => setTimeout(r, 3000));
+    waited += 3;
     const { upload: u } = await client.send(new GetUploadCommand({ arn: upload.arn }));
     status = u.status;
-    if (status === 'FAILED') throw new Error('Upload processing failed');
+    if (status === 'FAILED') {
+      // Surface Device Farm's explanation instead of a generic message.
+      const reason = u.message || u.metadata || 'no reason provided by Device Farm';
+      throw new Error(
+        `Device Farm rejected "${fileName}" (type ${type}). Reason: ${reason}`
+      );
+    }
+    if (waited > 120) {
+      throw new Error(`Upload processing timed out after ${waited}s (last status: ${status})`);
+    }
   }
   console.log(`   Done: ${upload.arn}`);
   return upload.arn;
