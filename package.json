@@ -21,6 +21,7 @@
   "devDependencies": {
     "@aws-sdk/client-device-farm": "^3.450.0",
     "@playwright/test": "^1.40.0",
+    "archiver": "^5.3.2",
     "playwright": "^1.40.0",
     "@vitejs/plugin-react": "^4.2.0",
     "cross-env": "^7.0.3",

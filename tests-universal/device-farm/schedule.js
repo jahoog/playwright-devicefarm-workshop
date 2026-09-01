@@ -15,7 +15,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const archiver = require('archiver');
 const {
   DeviceFarmClient,
   CreateUploadCommand,
@@ -53,7 +53,24 @@ function copyDir(src, dest) {
   }
 }
 
-function createPackage() {
+// Build a standard ZIP with `archiver`. Device Farm's Java-based unzipper is
+// strict about the ZIP container; `tar -a -cf *.zip` on Linux produces a
+// nonstandard archive that fails validation (APPIUM_WEB_NODE_TEST_PACKAGE_UNZIP_FAILED).
+function zipDir(srcDir, zipPath) {
+  return new Promise((resolve, reject) => {
+    const output = fs.createWriteStream(zipPath);
+    const archive = archiver('zip', { zlib: { level: 9 } });
+    output.on('close', resolve);
+    archive.on('warning', (err) => { if (err.code !== 'ENOENT') reject(err); });
+    archive.on('error', reject);
+    archive.pipe(output);
+    // Contents at the archive root (not nested under a top-level folder).
+    archive.directory(srcDir, false);
+    archive.finalize();
+  });
+}
+
+async function createPackage() {
   const outputDir = path.join(__dirname, 'dist');
   const zipPath = path.join(outputDir, `universal-${platform}-package.zip`);
   if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
@@ -88,11 +105,7 @@ function createPackage() {
   }, null, 2));
 
   if (fs.existsSync(zipPath)) fs.unlinkSync(zipPath);
-  try {
-    execSync(`tar -a -cf "${zipPath}" -C "${staging}" .`, { stdio: 'pipe' });
-  } catch {
-    execSync(`powershell -Command "Compress-Archive -Path '${staging}\\*' -DestinationPath '${zipPath}' -Force"`, { stdio: 'pipe' });
-  }
+  await zipDir(staging, zipPath);
   fs.rmSync(staging, { recursive: true });
   console.log(`   Package created: ${zipPath}`);
   return zipPath;
@@ -150,7 +163,7 @@ async function main() {
   validate();
   const client = new DeviceFarmClient({ region: config.region });
 
-  const zipPath = createPackage();
+  const zipPath = await createPackage();
   const testSpecFile = isIos ? 'testspec-ios.yml' : 'testspec-android.yml';
 
   const testPackageArn = await uploadFile(client, zipPath, 'APPIUM_WEB_NODE_TEST_PACKAGE', 'application/octet-stream');
