@@ -37,17 +37,13 @@ export TEST_APP_URL="https://main.d20a5ulgjk6z5r.amplifyapp.com"
 export DEVICE_POOL_ARN="arn:aws:devicefarm:us-west-2:<acct>:devicepool:<iosPoolId>"
 ```
 
-Need an iOS device pool? List existing pools or create one filtered to iOS:
+Need an iOS device pool? List your existing pools to find the ARN:
 
 ```bash
 aws devicefarm list-device-pools --arn "$DEVICE_FARM_PROJECT_ARN" --region us-west-2
-
-aws devicefarm create-device-pool \
-  --project-arn "$DEVICE_FARM_PROJECT_ARN" \
-  --name "iOS Devices" \
-  --rules '[{"attribute":"PLATFORM","operator":"EQUALS","value":"\"IOS\""}]' \
-  --region us-west-2
 ```
+
+If you don't have an iOS pool yet, create one in the **AWS Console** with just **one or two** iOS devices (see Option B, step 1). Keep it small — a broad rule like "all iOS devices" will select a large fleet and run your tests on every one of them.
 
 ### 2. Run the tests
 
@@ -73,9 +69,16 @@ Then open the Console to review the video and logs.
 
 ## Option B: AWS Console
 
-### 1. Create (or reuse) a Mobile Device Testing project
+### 1. Create (or reuse) a Mobile Device Testing project and a small iOS pool
 
 Same as the Android section — a single Mobile Device Testing project can hold both Android and iOS runs. Copy the **Project ARN**.
+
+To create the iOS device pool:
+1. Open your project in the Device Farm console
+2. Go to **Device pools** → **Create device pool**
+3. Name it (e.g. `iOS Small`)
+4. Add **one or two specific iOS devices** by selecting them individually — do **not** use a broad "all iOS" rule, which would run your tests across the entire iOS fleet
+5. Save, then copy the pool ARN if you plan to run from the CLI
 
 ### 2. Build the iOS test package
 

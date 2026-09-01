@@ -140,4 +140,4 @@ TEST_APP_URL="https://main.d20a5ulgjk6z5r.amplifyapp.com" \
 
 ## Next
 
-**[Extracting to a Standalone Workshop Repo →](./06-extract-to-repo.md)**
+**[Troubleshooting & Common Issues →](./06-troubleshooting.md)**

@@ -68,7 +68,7 @@ Work through these in order:
 3. **[iOS on Mobile Device Farm](./03-ios-device-farm.md)** — Playwright tests on real Safari via Appium
 4. **[Desktop Browser Testing](./04-desktop-browser-testing.md)** — Playwright tests on Chrome/Firefox/Edge
 5. **[Running Playwright at Scale](./05-playwright-at-scale.md)** — self-hosted parallel execution on AWS
-6. **[Extracting to a Standalone Workshop Repo](./06-extract-to-repo.md)** — package this supplement for distribution
+6. **[Troubleshooting & Common Issues](./06-troubleshooting.md)** — fixes for problems seen during the workshop
 
 ## Lab Environment Notes
 
