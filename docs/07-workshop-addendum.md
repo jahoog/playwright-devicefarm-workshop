@@ -68,8 +68,8 @@ Update the trust relationship of **`DeviceFarm-GitHubActionRole`** so its `token
 ```json
 "StringLike": {
     "token.actions.githubusercontent.com:sub": [
-        "repo:jahoog/aws-device-farm-github-action-lab-two:*",
-        "repo:jahoog@*/aws-device-farm-github-action-lab-two@*:*"
+        "repo:<your github username>/aws-device-farm-github-action-lab:*",
+        "repo:<your github username>@*/aws-device-farm-github-action-lab@*:*"
     ]
 }
 ```
@@ -77,7 +77,7 @@ Update the trust relationship of **`DeviceFarm-GitHubActionRole`** so its `token
 - The **first** entry is the standard textual form: `repo:<owner>/<repo>:*`
 - The **second** entry uses `@*` wildcards so it also matches the newer immutable-ID form, where the owner and repo carry numeric IDs
 
-Replace `jahoog` and `aws-device-farm-github-action-lab-two` with **your** GitHub owner and repository name.
+Replace `<your github username>` and `aws-device-farm-github-action-lab` with **your** GitHub owner and repository name.
 
 ### How to apply it
 
@@ -116,8 +116,8 @@ A complete trust policy document looks like this (replace the account ID, owner,
         },
         "StringLike": {
           "token.actions.githubusercontent.com:sub": [
-            "repo:jahoog/aws-device-farm-github-action-lab-two:*",
-            "repo:jahoog@*/aws-device-farm-github-action-lab-two@*:*"
+            "repo:<your github username>/aws-device-farm-github-action-lab-two:*",
+            "repo:<your github username>@*/aws-device-farm-github-action-lab@*:*"
           ]
         }
       }

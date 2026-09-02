@@ -32,8 +32,8 @@ Appium + XCUITest  →  Safari on a real iPhone
 ### 1. Set environment variables
 
 ```bash
-export DEVICE_FARM_PROJECT_ARN="arn:aws:devicefarm:us-west-2:<acct>:project:<id>"
 export TEST_APP_URL="https://main.d20a5ulgjk6z5r.amplifyapp.com"
+export DEVICE_FARM_PROJECT_ARN="arn:aws:devicefarm:us-west-2:<acct>:project:<id>"
 export DEVICE_POOL_ARN="arn:aws:devicefarm:us-west-2:<acct>:devicepool:<iosPoolId>"
 ```
 

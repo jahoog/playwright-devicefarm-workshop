@@ -40,8 +40,8 @@ Copy the returned **project ARN**.
 ### 2. Set environment variables
 
 ```bash
-export DEVICE_FARM_PROJECT_ARN="arn:aws:devicefarm:us-west-2:<acct>:testgrid-project:<id>"
 export TEST_APP_URL="https://main.d20a5ulgjk6z5r.amplifyapp.com"
+export DEVICE_FARM_PROJECT_ARN="arn:aws:devicefarm:us-west-2:<acct>:testgrid-project:<id>"
 export SELENIUM_BROWSER="chrome"   # or firefox, edge
 ```
 

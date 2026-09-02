@@ -29,20 +29,23 @@ From the VS Code Server terminal, in the project root.
 
 ### 1. Set environment variables
 
+Use the console to: 
+- Create a Device Farm Project called **playwright-android**
+- Within the project settings, Create a Device Pool for Android - select one or 2 devices
+
+Now set environment variables
+
 ```bash
-export DEVICE_FARM_PROJECT_ARN="arn:aws:devicefarm:us-west-2:<acct>:project:<id>"
 export TEST_APP_URL="https://main.d20a5ulgjk6z5r.amplifyapp.com"
+export DEVICE_FARM_PROJECT_ARN="arn:aws:devicefarm:us-west-2:<acct>:project:<id>"
 export DEVICE_POOL_ARN="arn:aws:devicefarm:us-west-2:<acct>:devicepool:<id>"
 ```
 
-Don't have the ARNs yet? Create/list them:
+Don't have the ARNs yet? List them:
 
 ```bash
-# Create a Mobile Device Testing project (returns the project ARN)
-aws devicefarm create-project --name playwright-android --region us-west-2 \
-  --query 'project.arn' --output text
 
-# List device pools for the project
+# List device pools for the project to get the ARN
 aws devicefarm list-device-pools --arn "$DEVICE_FARM_PROJECT_ARN" --region us-west-2
 ```
 

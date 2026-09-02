@@ -7,6 +7,7 @@ Everything in this supplement runs from the workshop repository. Clone it first,
 In the workshop lab (VS Code Server terminal) or on your own machine:
 
 ```bash
+cd /Workshop
 git clone https://github.com/jahoog/playwright-devicefarm-workshop.git
 cd playwright-devicefarm-workshop
 npm install
