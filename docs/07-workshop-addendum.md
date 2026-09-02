@@ -4,6 +4,30 @@ This page captures extra steps and corrections that aren't in the base workshop 
 
 ---
 
+## Module 1, Lab 1c — Appium Remote Endpoint Testing
+
+**Where this applies:** Module 1, Lab 1c, the **"Setup and run"** step.
+
+There is no reason to configure an S3 Bucket and IAM Execution role.  You can skip these steps and **upload the existing Android application**.
+
+Then, in the **Try it: a complete app test serverd from Amazon S3** section, in step 2 replace:
+
+
+```bash
+    'appium:app': process.env.APPIUM_APP_S3_URI,
+```
+
+with this:
+
+```bash
+  'appium:appPackage': 'com.amazonaws.devicefarm.android.referenceapp',
+  'appium:appActivity': 'com.amazonaws.devicefarm.android.referenceapp.Activities.MainActivity',
+```
+
+> Note: the steps for referencing an app from S3 may still be used and they will succeed.  Device Farm will automatically inject the package name; but you also have the ability to upload an app and reference it via it's package name and default activity.
+
+---
+
 ## Module 2, Lab 1 — Setup GitHub Repo (clone + fetch test assets)
 
 **Where this applies:** Module 2, Lab 1, the **"Setup GitHub Repo"** step.
